@@ -1,23 +1,14 @@
-/*document.querySelector("#eraser").addEventListener("click", () => {
-    document.querySelector("#groceryItems").textContent = "";
-  })
-  */
-  document.querySelector("#userInput").addEventListener("keydown", (event) => {
+document.querySelector("#userInput").addEventListener("keydown", (event) => {
     if(event.key == "Enter")
       addItem();
   });
   
   addItem = () => {
-    /*var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
-  var t = document.createTextNode(inputValue);
-  li.appendChild(t); */
     const item = document.createElement("h2");
     const list= document.createElement("list");
     list.textContent = document.querySelector("#userInput").value;
     const span = document.createElement("span");
     var txt = document.createTextNode("\u00D7");
-
     span.className = "close";
     span.appendChild(txt);
     item.append(list)
@@ -28,7 +19,15 @@
       else
         list.style.textDecoration = "none";
     })
+    span.addEventListener("click",()=>{
+      for (i = 0; i < close.length; i++) {
+        span[i].onclick = function() {
+          var div = this.parentElement;
+          div.style.display = "none";
+        }
+      }
+    });
   
-    document.querySelector("#groceryItems").appendChild(item);
+    document.querySelector("#shoppingItems").appendChild(item);
     document.querySelector("#userInput").value = "";
   }
