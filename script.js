@@ -1,33 +1,71 @@
-document.querySelector("#userInput").addEventListener("keydown", (event) => {
-    if(event.key == "Enter")
+var marked=0;
+var count1=0;
+var unmarked=0;
+const totalCount=document.getElementById("count");
+const markedCount=document.getElementById("count1");
+const unmarkedCount=document.getElementById("count2");
+const hide=document.getElementById("hide");
+document.querySelector("#myInput").addEventListener("keydown", (event) => {
+    if(event.key == "Enter" && document.querySelector("#myInput").value.trim()!='' )
       addItem();
   });
-  
   addItem = () => {
-    const item = document.createElement("h2");
-    const list= document.createElement("list");
-    list.textContent = document.querySelector("#userInput").value;
-    const span = document.createElement("span");
-    var txt = document.createTextNode("\u00D7");
-    span.className = "close";
-    span.appendChild(txt);
-    item.append(list)
-    item.appendChild(span);
-    list.addEventListener("click", () => {
-      if(list.style.textDecoration != "line-through")
-        list.style.textDecoration = "line-through";
+    count1=count1+1;
+    const item = document.createElement("div");
+    item.classList.add("shoppingItems1");
+    const listItem= document.createElement("span");
+    listItem.textContent = document.querySelector("#myInput").value;
+    const remove = document.createElement("span");
+    const txt = document.createTextNode("\u00D7");
+    remove.appendChild(txt);
+    item.appendChild(remove)
+    item.appendChild(listItem);
+    remove.classList.add("remove");
+    listItem.classList.add("listItem");
+    remove.addEventListener("click",()=>{
+      if(item.style.backgroundColor=="green")
+      {
+        marked=marked-1;
+        console.log("Bug2")
+      }
+      count1=count1-1;
+      item.remove()
+      totalCount.innerHTML=count1;
+      markedCount.innerHTML=marked;
+      unmarkedCount.innerHTML=count1-marked; 
+      console.log(count1);
+      console.log(marked);
+  });
+    listItem.addEventListener("click", () => {
+      if(item.style.backgroundColor!="green")
+      { item.style.backgroundColor="green";
+      marked=marked+1;
+      }
       else
-        list.style.textDecoration = "none";
-    })
-    span.addEventListener("click",()=>{
-      for (i = 0; i < close.length; i++) {
-        span[i].onclick = function() {
-          var div = this.parentElement;
-          div.style.display = "none";
+      {item.style.backgroundColor="#6e726f"
+        marked=marked-1;
+      }
+      //item.classList.toggle("change1")
+      listItem.classList.toggle("change2")
+      totalCount.innerHTML=count1;
+      markedCount.innerHTML=marked;
+      unmarkedCount.innerHTML=count1-marked; 
+      console.log(count1);
+      console.log(marked);
+    });
+    hide.addEventListener("click",()=>{
+      itemList=document.getElementById("shoppingItems");
+      for (i = 0; i < itemList.length; i++) {
+        console.log(itemList.item(i));
+        if(itemsList.item(i).style.backgroundColor=="green"){
+          itemList.item(i).remove()
         }
       }
+      marked=0;
     });
-  
     document.querySelector("#shoppingItems").appendChild(item);
-    document.querySelector("#userInput").value = "";
+    document.querySelector("#myInput").value = "";
+    totalCount.innerHTML=count1;
+    markedCount.innerHTML=marked;
+    unmarkedCount.innerHTML=count1-marked; 
   }
